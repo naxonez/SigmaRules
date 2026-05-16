@@ -1,9 +1,16 @@
-## Sigma
+###################
+Example Log:
+type=SYSCALL msg=audit(1778928613.782:955): arch=c000003e syscall=41 success=yes exit=4 a0=26 a1=80005 a2=0 a3=567c458df4af 
+items=0 ppid=7879 pid=8980 auid=1000 uid=1000 gid=1000 euid=1000 suid=1000 fsuid=1000 egid=1000 sgid=1000 fsgid=1000 tty=pts4 
+ses=5 comm="python3" exe="/usr/bin/python3.10" subj=unconfined key="exploit_crypto"^]ARCH=x86_64 SYSCALL=socket 
+AUID="naxonez" UID="naxonez" GID="naxonez" EUID="naxonez" SUID="naxonez" FSUID="naxonez" EGID="naxonez" SGID="naxonez" FSGID="naxonez"
+###################
+
 title: Intento de Escalada de Privilegios Local vía Sockets AF_ALG
 id: 5e6a2b8e-1c1d-4e2b-8a9d-123456789abc
 status: experimental
 description: |
-    Detecta la creación sospechosa de sockets de la familia AF_ALG (38). 
+    Detecta la creación sospechosa de sockets de la familia AF_ALG (26). 
     Esta técnica es utilizada por exploits como CopyFail para corromper memoria del kernel 
     y obtener privilegios de root, incluso si el exploit falla posteriormente en el binding.
 references:
@@ -17,16 +24,15 @@ logsource:
 detection:
     selection_syscall:
         type: 'SYSCALL'
-        syscall: 'socket'
-        # a0=38 es AF_ALG. En logs procesados puede aparecer como 'alg'
+        syscall: '41'
+        # a0=26 es AF_ALG. En logs procesados puede aparecer como 'alg'
         a0: 
-            - '38'
+            - '26'
             - 'alg'
-        # a1=5 es SOCK_SEQPACKET. En logs puede aparecer por nombre.
+        # a1=8005 es SOCK_SEQPACKET. En logs puede aparecer por nombre.
         a1: 
-            - '5'
+            - '8005'
             - 'SOCK_SEQPACKET'
-    
     filter_legitimate:
         # Algunos servicios de criptografía legítimos podrían usarlo, 
         # pero es raro en usuarios comunes (unconfined).
