@@ -1,0 +1,2 @@
+# SigmaRules
+Random Sigma Rules
