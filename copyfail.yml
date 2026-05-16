@@ -8,7 +8,7 @@ description: |
     y obtener privilegios de root, incluso si el exploit falla posteriormente en el binding.
 references:
     - https://github.com/tgies/copy-fail-c
-    - https://blog.lexfo.fr/cve-2017-7184-linux-kernel-exploitation.html
+    - https://copy.fail/
 author: naxonez / AI Lab Collaboration
 date: 2026/05/16
 logsource:
