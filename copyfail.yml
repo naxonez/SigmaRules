@@ -1,9 +1,12 @@
 ###################
-Example Log:
-type=SYSCALL msg=audit(1778928613.782:955): arch=c000003e syscall=41 success=yes exit=4 a0=26 a1=80005 a2=0 a3=567c458df4af 
-items=0 ppid=7879 pid=8980 auid=1000 uid=1000 gid=1000 euid=1000 suid=1000 fsuid=1000 egid=1000 sgid=1000 fsgid=1000 tty=pts4 
-ses=5 comm="python3" exe="/usr/bin/python3.10" subj=unconfined key="exploit_crypto"^]ARCH=x86_64 SYSCALL=socket 
-AUID="naxonez" UID="naxonez" GID="naxonez" EUID="naxonez" SUID="naxonez" FSUID="naxonez" EGID="naxonez" SGID="naxonez" FSGID="naxonez"
+# Monitorizar la creación de sockets de criptografía (AF_ALG = 38) con auditd - a = socket.socket(38, 5, 0)  # AF_ALG, SOCK_SEQPACKET
+#-a always,exit -F arch=b64 -S socket -F a0=38 -k exploit_crypto
+#
+#Example Log:
+#type=SYSCALL msg=audit(1778928613.782:955): arch=c000003e syscall=41 success=yes exit=4 a0=26 a1=80005 a2=0 a3=567c458df4af 
+#items=0 ppid=7879 pid=8980 auid=1000 uid=1000 gid=1000 euid=1000 suid=1000 fsuid=1000 egid=1000 sgid=1000 fsgid=1000 tty=pts4 
+#ses=5 comm="python3" exe="/usr/bin/python3.10" subj=unconfined key="exploit_crypto"^]ARCH=x86_64 SYSCALL=socket 
+#AUID="naxonez" UID="naxonez" GID="naxonez" EUID="naxonez" SUID="naxonez" FSUID="naxonez" EGID="naxonez" SGID="naxonez" FSGID="naxonez"
 ###################
 
 title: Intento de Escalada de Privilegios Local vía Sockets AF_ALG
